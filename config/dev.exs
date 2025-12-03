@@ -1,8 +1,5 @@
 import Config
 
-# Configure ExSync
-config :exsync, src_monitor: false
-
 # Configure libcluster
 # iex --name node1 -S mix
 config :libcluster, topologies: [epmd: [strategy: Cluster.Strategy.LocalEpmd]]
