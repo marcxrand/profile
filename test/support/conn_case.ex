@@ -19,15 +19,14 @@ defmodule ProfileWeb.ConnCase do
 
   using do
     quote do
-      # The default endpoint for testing
-      @endpoint ProfileWeb.Endpoint
-
       use ProfileWeb, :verified_routes
 
-      # Import conveniences for testing with connections
-      import Plug.Conn
       import Phoenix.ConnTest
+      import Plug.Conn
       import ProfileWeb.ConnCase
+
+      # The default endpoint for testing
+      @endpoint ProfileWeb.Endpoint
     end
   end
 

@@ -18,12 +18,12 @@ defmodule Profile.DataCase do
 
   using do
     quote do
-      alias Profile.Repo
-
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
       import Profile.DataCase
+
+      alias Profile.Repo
     end
   end
 

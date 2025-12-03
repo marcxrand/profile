@@ -23,10 +23,9 @@ defmodule ProfileWeb do
     quote do
       use Phoenix.Router, helpers: false
 
-      # Import common connection and controller functions to use in pipelines
-      import Plug.Conn
       import Phoenix.Controller
       import Phoenix.LiveView.Router
+      import Plug.Conn
     end
   end
 
@@ -39,7 +38,6 @@ defmodule ProfileWeb do
   def controller do
     quote do
       use Phoenix.Controller, formats: [:html, :json]
-
       use Gettext, backend: ProfileWeb.Gettext
 
       import Plug.Conn
@@ -84,8 +82,8 @@ defmodule ProfileWeb do
 
       # HTML escaping functionality
       import Phoenix.HTML
-      # Core UI components
-      import ProfileWeb.CoreComponents
+      # UI components
+      import ProfileWeb.Components
 
       # Common modules used in templates
       alias Phoenix.LiveView.JS

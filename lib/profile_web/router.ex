@@ -1,5 +1,6 @@
 defmodule ProfileWeb.Router do
   use ProfileWeb, :router
+
   import Oban.Web.Router
 
   pipeline :browser do

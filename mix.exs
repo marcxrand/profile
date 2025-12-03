@@ -67,6 +67,7 @@ defmodule Profile.MixProject do
       {:phoenix_live_reload, "~> 1.6", only: :dev},
       {:phoenix_live_view, "~> 1.1"},
       {:postgrex, "~> 0.21"},
+      {:quokka, "~> 2.11", only: [:dev, :test], runtime: false},
       {:req, "~> 0.5"},
       {:swoosh, "~> 1.19"},
       {:tailwind, "~> 0.4", runtime: Mix.env() == :dev},

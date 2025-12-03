@@ -1,4 +1,4 @@
-defmodule ProfileWeb.CoreComponents do
+defmodule ProfileWeb.Components do
   @moduledoc """
   Provides core UI components.
 
@@ -186,7 +186,7 @@ defmodule ProfileWeb.CoreComponents do
 
     assigns
     |> assign(field: nil, id: assigns.id || field.id)
-    |> assign(:errors, Enum.map(errors, &translate_error(&1)))
+    |> assign(:errors, Enum.map(errors, &translate_error/1))
     |> assign_new(:name, fn -> if assigns.multiple, do: field.name <> "[]", else: field.name end)
     |> assign_new(:value, fn -> field.value end)
     |> input()
