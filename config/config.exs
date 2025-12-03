@@ -9,7 +9,7 @@ import Config
 
 config :profile,
   ecto_repos: [Profile.Repo],
-  generators: [timestamp_type: :utc_datetime, binary_id: true]
+  generators: [timestamp_type: :utc_datetime_usec, binary_id: true]
 
 # Configure the endpoint
 config :profile, ProfileWeb.Endpoint,
@@ -21,6 +21,27 @@ config :profile, ProfileWeb.Endpoint,
   ],
   pubsub_server: Profile.PubSub,
   live_view: [signing_salt: "2S0fLDtp"]
+
+# Configure oban
+config :profile, Oban,
+  engine: Oban.Pro.Engines.Smart,
+  notifier: Oban.Notifiers.PG,
+  plugins: [
+    {
+      Oban.Pro.Plugins.DynamicCron,
+      crontab: [
+        # {"* * * * *", MyApp.MinuteJob}
+      ]
+    },
+    Oban.Pro.Plugins.DynamicLifeline,
+    Oban.Pro.Plugins.DynamicPartitioner,
+    Oban.Pro.Plugins.DynamicPrioritizer,
+    {
+      Oban.Pro.Plugins.DynamicQueues,
+      queues: [default: 10], sync_mode: :automatic
+    }
+  ],
+  repo: Profile.Repo
 
 # Configure the mailer
 #

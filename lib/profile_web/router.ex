@@ -1,5 +1,6 @@
 defmodule ProfileWeb.Router do
   use ProfileWeb, :router
+  import Oban.Web.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -12,6 +13,12 @@ defmodule ProfileWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+  end
+
+  scope "/admin" do
+    pipe_through :browser
+
+    oban_dashboard "/oban"
   end
 
   scope "/", ProfileWeb do

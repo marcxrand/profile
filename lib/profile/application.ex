@@ -10,6 +10,7 @@ defmodule Profile.Application do
     children = [
       ProfileWeb.Telemetry,
       Profile.Repo,
+      {Oban, Application.fetch_env!(:profile, Oban)},
       {DNSCluster, query: Application.get_env(:profile, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Profile.PubSub},
       # Start a worker by calling: Profile.Worker.start_link(arg)
@@ -17,6 +18,10 @@ defmodule Profile.Application do
       # Start to serve requests, typically the last entry
       ProfileWeb.Endpoint
     ]
+
+    # Attach oban loggers
+    Oban.Telemetry.attach_default_logger()
+    Oban.Web.Telemetry.attach_default_logger()
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options

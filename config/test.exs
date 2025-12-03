@@ -1,5 +1,8 @@
 import Config
 
+# Prevent Oban from running jobs and plugins
+config :profile, Oban, testing: :manual
+
 # Configure your database
 #
 # The MIX_TEST_PARTITION environment variable can be used
