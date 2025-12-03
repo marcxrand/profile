@@ -36,7 +36,7 @@ defmodule ProfileWeb.Layouts do
   def app(assigns) do
     ~H"""
     <header class="flex gap-3 h-13 pt-4 px-4 sm:px-6 lg:px-8">
-      <a href="/" class="flex items-center flex-none">
+      <a href="/" class="flex flex-none items-center">
         <.icon name="remix-user-4" class="size-7" />
       </a>
       <div class="border border-black/16 cursor-pointer flex flex-1 gap-1 items-center px-2 rounded text-black/40 text-sm hover:border-black/32">
@@ -78,7 +78,7 @@ defmodule ProfileWeb.Layouts do
         hidden
       >
         {gettext("Attempting to reconnect")}
-        <.icon name="hero-arrow-path" class="ml-1 size-3 motion-safe:animate-spin" />
+        <.icon name="hero-arrow-path" class="motion-safe:animate-spin ml-1 size-3" />
       </.flash>
 
       <.flash
@@ -90,7 +90,7 @@ defmodule ProfileWeb.Layouts do
         hidden
       >
         {gettext("Attempting to reconnect")}
-        <.icon name="hero-arrow-path" class="ml-1 size-3 motion-safe:animate-spin" />
+        <.icon name="hero-arrow-path" class="motion-safe:animate-spin ml-1 size-3" />
       </.flash>
     </div>
     """
@@ -103,31 +103,31 @@ defmodule ProfileWeb.Layouts do
   """
   def theme_toggle(assigns) do
     ~H"""
-    <div class="card relative flex flex-row items-center border-2 border-base-300 bg-base-300 rounded-full">
-      <div class="absolute w-1/3 h-full rounded-full border-1 border-base-200 bg-base-100 brightness-200 left-0 [[data-theme=light]_&]:left-1/3 [[data-theme=dark]_&]:left-2/3 transition-[left]" />
+    <div class="bg-base-300 border-2 border-base-300 card flex flex-row items-center relative rounded-full">
+      <div class="absolute bg-base-100 border-1 border-base-200 brightness-200 h-full left-0 [[data-theme=light]_&]:left-1/3 [[data-theme=dark]_&]:left-2/3 rounded-full transition-[left] w-1/3" />
 
       <button
-        class="flex p-2 cursor-pointer w-1/3"
+        class="cursor-pointer flex p-2 w-1/3"
         phx-click={JS.dispatch("phx:set-theme")}
         data-phx-theme="system"
       >
-        <.icon name="hero-computer-desktop-micro" class="size-4 opacity-75 hover:opacity-100" />
+        <.icon name="hero-computer-desktop-micro" class="opacity-75 size-4 hover:opacity-100" />
       </button>
 
       <button
-        class="flex p-2 cursor-pointer w-1/3"
+        class="cursor-pointer flex p-2 w-1/3"
         phx-click={JS.dispatch("phx:set-theme")}
         data-phx-theme="light"
       >
-        <.icon name="hero-sun-micro" class="size-4 opacity-75 hover:opacity-100" />
+        <.icon name="hero-sun-micro" class="opacity-75 size-4 hover:opacity-100" />
       </button>
 
       <button
-        class="flex p-2 cursor-pointer w-1/3"
+        class="cursor-pointer flex p-2 w-1/3"
         phx-click={JS.dispatch("phx:set-theme")}
         data-phx-theme="dark"
       >
-        <.icon name="hero-moon-micro" class="size-4 opacity-75 hover:opacity-100" />
+        <.icon name="hero-moon-micro" class="opacity-75 size-4 hover:opacity-100" />
       </button>
     </div>
     """
