@@ -1,8 +1,9 @@
 import Config
 
 # Configure libcluster
-# iex --name node1 -S mix
-config :libcluster, topologies: [epmd: [strategy: Cluster.Strategy.LocalEpmd]]
+# PORT=4000 iex --sname a -S mix phx.server
+# PORT=4001 iex --sname b -S mix phx.server
+config :libcluster, topologies: [gossip: [strategy: Cluster.Strategy.Gossip]]
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :default_formatter, format: "[$level] $message\n"
