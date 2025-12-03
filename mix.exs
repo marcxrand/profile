@@ -42,6 +42,7 @@ defmodule Profile.MixProject do
     [
       {:bandit, "~> 1.8"},
       {:dns_cluster, "~> 0.2.0"},
+      {:dotenv_parser, "~> 2.0"},
       {:ecto_sql, "~> 3.13"},
       {:esbuild, "~> 0.10", runtime: Mix.env() == :dev},
       {:exsync, "~> 0.4", only: :dev},

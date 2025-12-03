@@ -35,3 +35,8 @@ profile-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# Ignore environment variables
+.env
+
+# Ignore macOS system files
+.DS_Store
