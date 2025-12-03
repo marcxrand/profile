@@ -1,5 +1,9 @@
 import Config
 
+# Configure libcluster
+# iex --name node1 -S mix
+config :libcluster, topologies: [epmd: [strategy: Cluster.Strategy.LocalEpmd]]
+
 # Configure your database
 config :profile, Profile.Repo,
   hostname: "localhost",

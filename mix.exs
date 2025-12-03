@@ -54,6 +54,7 @@ defmodule Profile.MixProject do
        depth: 1},
       {:jason, "~> 1.5.0-alpha.2"},
       {:lazy_html, "~> 0.1.8", only: :test},
+      {:libcluster, "~> 3.5"},
       {:oban, "~> 2.20"},
       {:oban_pro, "~> 1.6", repo: "oban"},
       {:oban_web, "~> 2.11"},

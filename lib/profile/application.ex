@@ -8,6 +8,8 @@ defmodule Profile.Application do
   @impl true
   def start(_type, _args) do
     children = [
+      {Cluster.Supervisor,
+       [Application.get_env(:libcluster, :topologies) || [], [name: Profile.ClusterSupervisor]]},
       ProfileWeb.Telemetry,
       Profile.Repo,
       {Oban, Application.fetch_env!(:profile, Oban)},

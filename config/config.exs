@@ -43,6 +43,9 @@ config :profile, Oban,
   ],
   repo: Profile.Repo
 
+# Configure the repository
+config :profile, Profile.Repo, migration_timestamps: [type: :utc_datetime_usec]
+
 # Configure the mailer
 #
 # By default it uses the "Local" adapter which stores the emails

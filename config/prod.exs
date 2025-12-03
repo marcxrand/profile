@@ -20,5 +20,17 @@ config :swoosh, local: false
 # Do not print debug messages in production
 config :logger, level: :info
 
+# Configure libcluster for Gigalixir
+config :libcluster,
+  topologies: [
+    gigalixir: [
+      strategy: Cluster.Strategy.Kubernetes,
+      config: [
+        kubernetes_selector: System.get_env("LIBCLUSTER_KUBERNETES_SELECTOR"),
+        kubernetes_node_basename: System.get_env("LIBCLUSTER_KUBERNETES_NODE_BASENAME")
+      ]
+    ]
+  ]
+
 # Runtime production configuration, including reading
 # of environment variables, is done on config/runtime.exs.
