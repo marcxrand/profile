@@ -56,7 +56,9 @@ config :profile, Oban,
 config :profile, Profile.Mailer, adapter: Swoosh.Adapters.Local
 
 # Configure the repository
-config :profile, Profile.Repo, migration_timestamps: [type: :utc_datetime_usec]
+config :profile, Profile.Repo,
+  migration_timestamps: [type: :utc_datetime_usec],
+  types: Profile.PostgrexTypes
 
 # Configure the endpoint
 config :profile, ProfileWeb.Endpoint,
@@ -71,6 +73,7 @@ config :profile, ProfileWeb.Endpoint,
 
 config :profile,
   ecto_repos: [Profile.Repo],
+  env: config_env(),
   generators: [timestamp_type: :utc_datetime_usec, binary_id: true]
 
 # Configure tailwind (the version is required)

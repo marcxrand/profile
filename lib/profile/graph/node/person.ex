@@ -1,10 +1,36 @@
 defmodule Profile.Graph.Node.Person do
   use Profile.Graph.Node.Behaviour
+  use Oban.Pro.Decorator
+
+  alias Oban.Pro.Workflow
+  alias Profile.Graph
 
   embedded_schema do
     field :name, :string
     field :slug, :string
     field :description, :string
+  end
+
+  @impl true
+  def insert(data) do
+    with {:ok, person} <- Profile.Graph.insert_node(%{type: type(), data: data}) do
+      Workflow.new(workflow_name: "insert-person")
+      |> Workflow.add(:description, new_update_description(person.id))
+      |> Oban.insert_all()
+
+      {:ok, person}
+    end
+  end
+
+  @impl true
+  def update(%Graph.Node{} = node, data) do
+    with {:ok, person} <- Graph.update_node(node, %{data: Map.merge(node.data, data)}) do
+      if Map.has_key?(data, :name) || Map.has_key?(data, :description) do
+        upsert_vector(person.id)
+      end
+
+      {:ok, person}
+    end
   end
 
   @impl true
@@ -21,6 +47,10 @@ defmodule Profile.Graph.Node.Person do
       message: "must be lowercase letters, numbers, and hyphens only"
     )
     |> to_result()
+  end
+
+  def vector_text(person) do
+    "[NAME: #{person.name}] #{person.description}"
   end
 
   defp maybe_generate_slug(changeset) do
@@ -40,5 +70,24 @@ defmodule Profile.Graph.Node.Person do
     |> String.replace(~r/\s+/, "-")
     |> String.replace(~r/-+/, "-")
     |> String.trim("-")
+  end
+
+  ## Workers
+  @job true
+  def update_description(person_id) do
+    person = get!(person_id)
+    description = "New description"
+
+    update(person, %{description: description})
+  end
+
+  @job true
+  def upsert_vector(person_id) do
+    person = get!(person_id)
+    text = vector_text(person.data)
+    {embedding, model} = Profile.Graph.generate_embedding!(text)
+    attrs = %{embedding: embedding, model: model, text: text, type: type(), node_id: person.id}
+
+    Graph.insert_vector(attrs)
   end
 end

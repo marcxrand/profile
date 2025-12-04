@@ -5,7 +5,7 @@ defmodule Profile.MixProject do
     [
       app: :profile,
       version: "0.1.0",
-      elixir: "~> 1.15",
+      elixir: "~> 1.19",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -60,6 +60,7 @@ defmodule Profile.MixProject do
       {:oban, "~> 2.20"},
       {:oban_pro, "~> 1.6", repo: "oban"},
       {:oban_web, "~> 2.11"},
+      {:pgvector, "~> 0.3"},
       {:phoenix, "~> 1.8"},
       {:phoenix_ecto, "~> 4.7"},
       {:phoenix_html, "~> 4.3"},

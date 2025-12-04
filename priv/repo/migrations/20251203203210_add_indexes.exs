@@ -18,9 +18,10 @@ defmodule Profile.Repo.Migrations.AddIndexes do
     create index(:edges, [:source_id, :type])
     create index(:edges, [:target_id, :type])
 
-    create index(:edges, [:source_id, :type, :target_id, :weight], name: :edges_outbound)
-    create index(:edges, [:target_id, :type, :source_id, :weight], name: :edges_inbound)
+    create index(:edges, [:source_id, :type, :target_id])
+    create index(:edges, [:target_id, :type, :source_id])
+    create unique_index(:edges, [:source_id, :target_id, :type])
 
-    create unique_index(:edges, [:source_id, :target_id, :type], name: :edges_unique)
+    create unique_index(:vectors, [:node_id, :text, :type])
   end
 end

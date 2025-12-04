@@ -39,7 +39,7 @@ defmodule ProfileWeb.Layouts do
       <a href="/" class="flex flex-none items-center">
         <.icon name="remix-user-4" class="size-7" />
       </a>
-      <div class="border border-black/16 cursor-pointer flex flex-1 gap-1 items-center px-2 rounded text-black/40 text-sm hover:border-black/32">
+      <div class="bg-white cursor-pointer flex flex-1 gap-1 items-center px-2 ring ring-stone-300 rounded text-black/40 text-sm hover:ring-stone-400">
         <.icon name="remix-search" class="size-3.25" /> Search
       </div>
       <.button class="px-4" href="/">

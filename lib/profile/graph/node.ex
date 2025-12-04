@@ -63,9 +63,18 @@ defmodule Profile.Graph.Node do
           updated_at: DateTime.t() | nil
         }
 
+  defmodule Data do
+    use Ecto.Type
+
+    def type, do: :map
+    def cast(data), do: {:ok, data}
+    def dump(data), do: {:ok, data}
+    def load(data), do: {:ok, Jason.encode!(data) |> Jason.decode!(keys: :atoms)}
+  end
+
   schema "nodes" do
     field :type, :string
-    field :data, :map, default: %{}
+    field :data, Data, default: %{}
     field :deleted_at, :utc_datetime_usec
 
     has_many :outgoing_edges, Edge, foreign_key: :source_id, where: [deleted_at: nil]

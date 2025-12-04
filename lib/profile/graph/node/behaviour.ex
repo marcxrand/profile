@@ -55,22 +55,22 @@ defmodule Profile.Graph.Node.Behaviour do
 
       @primary_key false
 
-      @doc """
-      Inserts a new node with validated data.
-      """
+      def get(id) do
+        Profile.Graph.get_node(id)
+      end
+
+      def get!(id) do
+        Profile.Graph.get_node!(id)
+      end
+
       @impl true
       def insert(data) do
         Profile.Graph.insert_node(%{type: type(), data: data})
       end
 
-      @doc """
-      Updates a node's data, merging with existing data.
-      """
       @impl true
       def update(%Profile.Graph.Node{} = node, data) do
-        with {:ok, valid_data} <- validate(data) do
-          Profile.Graph.update_node(node, %{data: Map.merge(node.data, valid_data)})
-        end
+        Profile.Graph.update_node(node, %{data: Map.merge(node.data, data)})
       end
 
       defoverridable insert: 1, update: 2
