@@ -5,8 +5,8 @@ defmodule Profile.Schema do
 
       import Ecto.Changeset
 
-      @primary_key {:id, :binary_id, autogenerate: true}
-      @foreign_key_type :binary_id
+      @primary_key {:id, UUIDv7, autogenerate: true}
+      @foreign_key_type UUIDv7
       @timestamps_opts [type: :utc_datetime_usec]
     end
   end
