@@ -76,7 +76,9 @@ defmodule Profile.Graph.Node.Person do
   @job true
   def update_description(person_id) do
     person = get!(person_id)
-    description = "New description"
+    prompt = Profile.AI.Prompts.person_description(person.data.name, person.data.description)
+    output = Profile.Clients.OpenAI.chat!(prompt, %{schema: %{description: :string}})
+    description = Map.get(output, "description")
 
     update(person, %{description: description})
   end
