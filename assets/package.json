@@ -1,0 +1,13 @@
+{
+  "workspaces": [
+    "../deps/*"
+  ],
+  "dependencies": {
+    "phoenix": "workspace:*",
+    "phoenix_html": "workspace:*",
+    "phoenix_live_view": "workspace:*",
+    "tailwindcss": "^4.1.17",
+    "@tailwindcss/cli": "^4.1.17",
+    "topbar": "^3.0.0"
+  }
+}

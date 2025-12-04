@@ -41,10 +41,10 @@ defmodule Profile.MixProject do
   defp deps do
     [
       {:bandit, "~> 1.8"},
+      {:bun, "~> 1.5", runtime: Mix.env() == :dev},
       {:dns_cluster, "~> 0.2.0"},
       {:dotenv_parser, "~> 2.0"},
       {:ecto_sql, "~> 3.13"},
-      {:esbuild, "~> 0.10", runtime: Mix.env() == :dev},
       {:exsync, "~> 0.4", only: :dev},
       {:gettext, "~> 1.0"},
       {:heroicons,
@@ -78,7 +78,6 @@ defmodule Profile.MixProject do
        depth: 1},
       {:req, "~> 0.5"},
       {:swoosh, "~> 1.19"},
-      {:tailwind, "~> 0.4", runtime: Mix.env() == :dev},
       {:telemetry_metrics, "~> 1.1"},
       {:telemetry_poller, "~> 1.3"},
       {:tidewave, "~> 0.5", only: :dev}
@@ -97,13 +96,9 @@ defmodule Profile.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
-      "assets.build": ["compile", "tailwind profile", "esbuild profile"],
-      "assets.deploy": [
-        "tailwind profile --minify",
-        "esbuild profile --minify",
-        "phx.digest"
-      ],
+      "assets.setup": ["bun.install --if-missing", "bun assets install"],
+      "assets.build": ["bun js", "bun css"],
+      "assets.deploy": ["bun css --minify", "bun js --minify", "phx.digest"],
       precommit: ["compile --warnings-as-errors", "deps.unlock --unused", "format", "test"]
     ]
   end

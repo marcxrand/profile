@@ -7,14 +7,18 @@
 # General application configuration
 import Config
 
-# Configure esbuild (the version is required)
-config :esbuild,
-  version: "0.25.4",
-  profile: [
+# Configure bun
+config :bun,
+  version: "1.3.3",
+  assets: [args: [], cd: Path.expand("../assets", __DIR__)],
+  css: [
+    args: ~w(run tailwindcss --input=css/app.css --output=../priv/static/assets/app.css),
+    cd: Path.expand("../assets", __DIR__)
+  ],
+  js: [
     args:
-      ~w(js/app.js --bundle --target=es2022 --outdir=../priv/static/assets/js --external:/fonts/* --external:/images/* --alias:@=.),
-    cd: Path.expand("../assets", __DIR__),
-    env: %{"NODE_PATH" => [Path.expand("../deps", __DIR__), Mix.Project.build_path()]}
+      ~w(build js/app.js --outdir=../priv/static/assets --external /fonts/* --external /images/*),
+    cd: Path.expand("../assets", __DIR__)
   ]
 
 # Configure Elixir's Logger
@@ -75,17 +79,6 @@ config :profile,
   ecto_repos: [Profile.Repo],
   env: config_env(),
   generators: [timestamp_type: :utc_datetime_usec, binary_id: true]
-
-# Configure tailwind (the version is required)
-config :tailwind,
-  version: "4.1.12",
-  profile: [
-    args: ~w(
-      --input=assets/css/app.css
-      --output=priv/static/assets/css/app.css
-    ),
-    cd: Path.expand("..", __DIR__)
-  ]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
